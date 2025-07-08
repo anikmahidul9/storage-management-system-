@@ -2,7 +2,7 @@
 
 This document outlines the API routes for the Storage Management System, including HTTP methods, endpoints, and example request bodies for testing with tools like Postman.
 
-**Base URL:** `http://localhost:5000/api/v1` (assuming default port and API version)
+**Base URL:** `http://localhost:8000/api/v1` (assuming default port and API version)
 
 ## Authentication Routes (`/api/v1/users`)
 
