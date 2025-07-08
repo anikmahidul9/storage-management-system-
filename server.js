@@ -47,7 +47,7 @@ app.get('/auth/google/callback',
 
 import errorHandler from './utils/errorHandler.js';
 
-app.use('/api/v1/items', items);
+
 app.use('/api/v1/users', users);
 app.use('/api/v1/folders', folderRoutes);
 app.use('/api/v1/file',fileRoutes);

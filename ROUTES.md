@@ -116,53 +116,6 @@ This document outlines the API routes for the Storage Management System, includi
 - **Description:** Deletes a folder and its contents recursively.
 - **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
 
-## Item Routes (`/api/v1/items`)
-
-### 1. Get All Items (Protected)
-- **Method:** `GET`
-- **Endpoint:** `/items`
-- **Description:** Retrieves all items for the authenticated user.
-- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
-
-### 2. Create Item (Protected)
-- **Method:** `POST`
-- **Endpoint:** `/items`
-- **Description:** Creates a new item.
-- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
-- **Request Body Example:**
-  ```json
-  {
-    "name": "New Item",
-    "description": "Description of the new item",
-    "folder": "<OPTIONAL_FOLDER_ID>"
-  }
-  ```
-
-### 3. Get Single Item (Protected)
-- **Method:** `GET`
-- **Endpoint:** `/items/:id`
-- **Description:** Retrieves a single item by ID.
-- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
-
-### 4. Update Item (Protected)
-- **Method:** `PUT`
-- **Endpoint:** `/items/:id`
-- **Description:** Updates an existing item.
-- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
-- **Request Body Example:**
-  ```json
-  {
-    "name": "Updated Item Name",
-    "description": "Updated description"
-  }
-  ```
-
-### 5. Delete Item (Protected)
-- **Method:** `DELETE`
-- **Endpoint:** `/items/:id`
-- **Description:** Deletes an item by ID.
-- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
-
 ## File Routes (`/api/v1/file`)
 
 ### 1. Upload File (Protected)
@@ -232,3 +185,79 @@ This document outlines the API routes for the Storage Management System, includi
 - **Endpoint:** `/file/all`
 - **Description:** Retrieves all files for the authenticated user, organized by type (images, pdfs, notes, others).
 - **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+
+## Share Routes (`/api/v1/share`)
+
+### 1. Share Item (Protected)
+- **Method:** `POST`
+- **Endpoint:** `/share`
+- **Description:** Shares a file or folder with another user.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+- **Request Body Example:**
+  ```json
+  {
+    "itemId": "<FILE_OR_FOLDER_ID>",
+    "itemType": "file", // or "folder"
+    "sharedWith": "<USER_ID_TO_SHARE_WITH>",
+    "permission": "view" // or "edit"
+  }
+  ```
+
+### 2. Get Shared Items (Protected)
+- **Method:** `GET`
+- **Endpoint:** `/share`
+- **Description:** Retrieves items shared with the authenticated user.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+
+## Lock/Unlock Routes (`/api/v1/protect`)
+
+### 1. Lock File (Protected)
+- **Method:** `POST`
+- **Endpoint:** `/protect/files/:id/lock`
+- **Description:** Locks a file with a password.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+- **Request Body Example:**
+  ```json
+  {
+    "password": "lockpassword",
+    "reason": "Confidential document"
+  }
+  ```
+
+### 2. Unlock File (Protected)
+- **Method:** `POST`
+- **Endpoint:** `/protect/files/:id/unlock`
+- **Description:** Unlocks a file with the correct password.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+- **Request Body Example:**
+  ```json
+  {
+    "password": "lockpassword"
+  }
+  ```
+
+### 3. Lock Folder (Protected)
+- **Method:** `POST`
+- **Endpoint:** `/protect/folders/:id/lock`
+- **Description:** Locks a folder with a password. Can optionally inherit lock to contents.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+- **Request Body Example:**
+  ```json
+  {
+    "password": "folderlock",
+    "reason": "Project files",
+    "inheritLock": true
+  }
+  ```
+
+### 4. Unlock Folder (Protected)
+- **Method:** `POST`
+- **Endpoint:** `/protect/folders/:id/unlock`
+- **Description:** Unlocks a folder with the correct password. Can optionally unlock inherited locks.
+- **Headers:** `Authorization: Bearer <YOUR_JWT_TOKEN>`
+- **Request Body Example:**
+  ```json
+  {
+    "password": "folderlock"
+  }
+  ```
