@@ -16,6 +16,7 @@ import users from './routes/userRoutes.js';
 import folderRoutes from './routes/folderRoutes.js';
 import fileRoutes from './routes/fileRoutes.js'
 import shareRoutes from './routes/shareRoutes.js';
+import lockCheckRoutes from './routes/lockCheckRoutes.js';
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/folders', folderRoutes);
 app.use('/api/v1/file',fileRoutes);
 app.use('/api/v1/share', shareRoutes);
+app.use('/api/v1/protect', lockCheckRoutes);
 
 app.use(errorHandler);
 

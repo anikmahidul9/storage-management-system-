@@ -8,6 +8,10 @@ const fileSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   folder: { type: mongoose.Schema.Types.ObjectId, ref: 'Folder', default: null },
   isFavorite: { type: Boolean, default: false },
+  isLocked: { type: Boolean, default: false },
+  lockPassword: { type: String, select: false }, // Hashed password
+  lockedAt: { type: Date },
+  lockReason: { type: String },
   createdAt: { type: Date, default: Date.now },
   content: { type: String } // For notes
 });

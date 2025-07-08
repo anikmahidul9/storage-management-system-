@@ -5,6 +5,11 @@ const folderSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Folder', default: null },
   isFavorite: { type: Boolean, default: false },
+  isLocked: { type: Boolean, default: false },
+  lockPassword: { type: String, select: false }, // Hashed password
+  lockedAt: { type: Date },
+  lockReason: { type: String },
+  inheritLock: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 
