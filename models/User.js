@@ -22,6 +22,8 @@ const userSchema = new mongoose.Schema({
     minlength: [8, 'Password must be at least 8 characters'],
     select: false
   },
+  storageUsed: { type: Number, default: 0 },
+  maxStorage: { type: Number, default: 16106127360 }, // 15 GB in bytes,
   lastLogin: Date,
   active: {
     type: Boolean,

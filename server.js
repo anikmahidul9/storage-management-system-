@@ -12,7 +12,10 @@ connectDB();
 
 // Route files
 import items from './routes/items.js';
-import users from './routes/userRoute.js';
+import users from './routes/userRoutes.js';
+import folderRoutes from './routes/folderRoutes.js';
+import fileRoutes from './routes/fileRoutes.js'
+import shareRoutes from './routes/shareRoutes.js';
 
 const app = express();
 
@@ -41,8 +44,15 @@ app.get('/auth/google/callback',
   }
 );
 
+import errorHandler from './utils/errorHandler.js';
+
 app.use('/api/v1/items', items);
 app.use('/api/v1/users', users);
+app.use('/api/v1/folders', folderRoutes);
+app.use('/api/v1/file',fileRoutes);
+app.use('/api/v1/share', shareRoutes);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
